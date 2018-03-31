@@ -3,16 +3,17 @@ import Toolbar from './toolbar';
 import ToolbarSpacer from './toolbarSpacer';
 import ToolbarButton from './toolbarButton';
 
-class NotesBottomToolbar extends Component {
+class MenuTopToolbar extends Component {
     render() {
         return (
             <Toolbar>
                 <ToolbarSpacer />
-                <ToolbarButton label="New Note"
-                    icon="far fa-edit" />
+                <ToolbarButton>
+                    Edit
+                </ToolbarButton>
             </Toolbar>
         )
     }
 }
 
-export default NotesBottomToolbar;
+export default MenuTopToolbar;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './notesSearch.css';
+import './menuSearch.css';
 
-class NotesSearch extends Component {
+class MenuSearch extends Component {
     constructor(props) {
         super(props);
     
@@ -16,9 +16,9 @@ class NotesSearch extends Component {
 
     render() {
         return (
-            <form className="notes-search" onSubmit={this.onSubmit}>
+            <form className="menu-search" onSubmit={this.onSubmit}>
                 <input type="text"
-                       className="notes-search__input"
+                       className="menu-search__input"
                        placeholder="Search"
                        ref={el => this.$el = el} />
             </form>
@@ -26,8 +26,8 @@ class NotesSearch extends Component {
     }
 }
 
-NotesSearch.propTypes = {
+MenuSearch.propTypes = {
     onChange: PropTypes.func.isRequired
 }
 
-export default NotesSearch;
+export default MenuSearch;
