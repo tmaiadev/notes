@@ -1,0 +1,52 @@
+.composer {
+    display: grid;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #FFF;
+    transform: translateX(101%);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    box-shadow: -2px 3px 15px rgba(0, 0, 0, .3);
+}
+
+@media (min-width: 768px) {
+    .composer {
+        width: 100%;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        background-color: transparent;
+        pointer-events: initial;
+        box-shadow: none;
+        transform: translateX(0%);
+    }
+}
+
+.composer--foreground {
+    pointer-events: initial;
+    z-index: 1;
+    animation: composerSlideIn .5s ease-in-out 0s 1 normal both;
+}
+
+@media (min-width: 768px) {
+    .composer--foreground {
+        animation: none;
+        z-index: 0;
+    }
+}
+
+@keyframes composerSlideIn {
+    from {
+        transform: translateX(101%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}

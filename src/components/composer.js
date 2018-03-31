@@ -9,11 +9,12 @@ class Composer extends Component {
     }
 
     render() {
-        const className = "composer " +
-            (this.props.className || '');
+        const className = ['composer'];
+        if (this.props.className) className.push(this.props.className);
+        if (this.props.foreground) className.push('composer--foreground');
 
         return (
-            <main className={className}>
+            <main className={className.join(' ')}>
                 <Scrollable>
                     <h1>Composer</h1>
                 </Scrollable>
@@ -23,7 +24,8 @@ class Composer extends Component {
 }
 
 Composer.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    foreground: PropTypes.bool
 };
 
 export default Composer;

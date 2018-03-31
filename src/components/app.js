@@ -6,7 +6,7 @@ import './app.css';
 
 const WINDOW = {
     MENU: 'MENU',
-    MAIN: 'MAIN'
+    COMPOSER: 'COMPOSER'
 };
 
 class App extends Component {
@@ -14,21 +14,22 @@ class App extends Component {
         super(props);
 
         this.state = {
-            focus: WINDOW.MENU
+            activeWindow: WINDOW.MENU
         }
 
         this.newNote = this.newNote.bind(this);
     }
 
     newNote() {
-
+        this.setState({ activeWindow: WINDOW.COMPOSER });
     }
 
     render() {
         return (
             <div className="app">
-                <Menu className="app__menu" />
-                <Composer className="app__main" />
+                <Menu className="app__menu"
+                      newNote={this.newNote} />
+                <Composer className="app__main" foreground={this.state.activeWindow === WINDOW.COMPOSER} />
             </div>
         )
     }
