@@ -1,0 +1,22 @@
+.app {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+@media (min-width: 768px) {
+    .app {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .app__menu {
+        width: 100%;
+        max-width: 320px;
+        border-right: solid thin #CCC;
+    }
+}

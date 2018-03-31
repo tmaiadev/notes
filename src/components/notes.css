@@ -1,0 +1,10 @@
+.notes {
+    display: grid;
+    grid-template-rows: min-content auto min-content;
+    height: 100%;
+}
+
+.notes__main {
+    padding-left: 15px;
+    padding-right: 15px;
+}

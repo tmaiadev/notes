@@ -1,0 +1,15 @@
+.notes-search {
+    display: block;
+}
+
+.notes-search__input {
+    display: block;
+    width: 100%;
+    color: #212121;
+    background-color: #E0E0E0;
+    border: 0px;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    font-size: 16px;
+}
