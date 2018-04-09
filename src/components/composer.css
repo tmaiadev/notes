@@ -1,15 +1,17 @@
 .composer {
     display: grid;
+    grid-template-rows: 50px auto 50px;
     position: absolute;
     top: 0px;
     left: 0px;
     right: 0px;
     bottom: 0px;
     background-color: #FFF;
-    transform: translateX(101%);
     pointer-events: none;
     z-index: 0;
+    transform: translateX(101%);
     will-change: transform;
+    transition: all .3s ease-in;
     box-shadow: -2px 3px 15px rgba(0, 0, 0, .3);
 }
 
@@ -29,9 +31,9 @@
 }
 
 .composer--foreground {
+    transform: translateX(0%);
     pointer-events: initial;
     z-index: 1;
-    animation: composerSlideIn .5s ease-in-out 0s 1 normal both;
 }
 
 @media (min-width: 768px) {
@@ -41,12 +43,12 @@
     }
 }
 
-@keyframes composerSlideIn {
-    from {
-        transform: translateX(101%);
-    }
+.composer__textarea {
+    padding: 15px;
+    min-height: 100%;
+    box-sizing: border-box;
+}
 
-    to {
-        transform: translateX(0%);
-    }
+.composer__textarea ul {
+    list-style-type: circle;
 }

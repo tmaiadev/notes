@@ -28,7 +28,7 @@ class Menu extends Component {
                     <h2>Notes</h2>
                     <MenuSearch onChange={this.onSearchChange} />
                 </Scrollable>
-                <MenuBottomToolbar newNote={this.props.newNote} />
+                <MenuBottomToolbar goToNewNote={this.props.goToNewNote} />
             </aside>
         )
     }
@@ -36,7 +36,7 @@ class Menu extends Component {
 
 Menu.propTypes = {
     className: PropTypes.string,
-    newNote: PropTypes.func.isRequired
+    goToNewNote: PropTypes.func.isRequired
 };
 
 export default Menu;

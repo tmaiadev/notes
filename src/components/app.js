@@ -17,19 +17,26 @@ class App extends Component {
             activeWindow: WINDOW.MENU
         }
 
-        this.newNote = this.newNote.bind(this);
+        this.goToNewNote = this.goToNewNote.bind(this);
+        this.goToMenu = this.goToMenu.bind(this);
     }
 
-    newNote() {
+    goToNewNote() {
         this.setState({ activeWindow: WINDOW.COMPOSER });
+    }
+
+    goToMenu() {
+        this.setState({ activeWindow: WINDOW.MENU });
     }
 
     render() {
         return (
             <div className="app">
                 <Menu className="app__menu"
-                      newNote={this.newNote} />
-                <Composer className="app__main" foreground={this.state.activeWindow === WINDOW.COMPOSER} />
+                      goToNewNote={this.goToNewNote} />
+                <Composer className="app__main"
+                          foreground={this.state.activeWindow === WINDOW.COMPOSER}
+                          goToMenu={this.goToMenu} />
             </div>
         )
     }

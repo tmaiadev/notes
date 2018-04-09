@@ -15,16 +15,25 @@ class ToolbarButton extends Component {
     }
 
     render() {
+        const iconClassName = ['toolbar-button__icon'];
+        if (this.props.icon) iconClassName.push(this.props.icon);
+        if (this.props.smallIcon) iconClassName.push('toolbar-button__icon--small');
+
         const icon = this.props.icon ?
-            <i className={"toolbar-button__icon " + this.props.icon} aria-hidden></i> : null;
+            <i className={iconClassName.join(' ')} aria-hidden></i> : null;
+
+        let componentClassName = 'toolbar-button';
+        if (this.props.mobileOnly) componentClassName += ' toolbar-button--mobile-only';
+        if (this.props.disabled) componentClassName += ' toolbar-button--disabled';
 
         return (
             <button type="button"
-                    className="toolbar-button"
+                    className={componentClassName}
                     onClick={this.onClick}
-                    aria-label={this.props.label}>
+                    aria-label={this.props.label}
+                    disabled={this.props.disabled}>
                 {icon}
-                {this.props.children}
+                {this.props.children ? <span className="toolbar-button__text">{this.props.children}</span> : null}
             </button>
         )
     }
@@ -33,7 +42,11 @@ class ToolbarButton extends Component {
 ToolbarButton.propTypes = {
     label: PropTypes.string,
     onClick: PropTypes.func,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    smallIcon: PropTypes.bool,
+    mobileOnly: PropTypes.bool,
+    children: PropTypes.string,
+    disabled: PropTypes.bool
 }
 
 export default ToolbarButton;

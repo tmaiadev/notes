@@ -1,11 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Scrollable from './scollable';
+import ComposerTopToolbar from './composerTopToolbar';
+import ComposerBottomToolbar from './composerBottomToolbar';
 import './composer.css';
+
+const STYLES = {
+    DEFAULT: 'DEFAULT',
+    TITLE: 'TITLE',
+    SUBTITLE: 'SUBTITLE'
+}
 
 class Composer extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            content: ""
+        }
+
+        this.onTextareaBlur = this.onTextareaBlur.bind(this);
+        this.onTextareaFocus = this.onTextareaFocus.bind(this);
+        this.onCheckboxClick = this.onCheckboxClick.bind(this);
+        this.onFontClick = this.onFontClick.bind(this);
+        this.onTexareaKeyDown = this.onTexareaKeyDown.bind(this);
+    }
+
+    onTextareaFocus() {
+
+    }
+
+    onTextareaBlur() {
+        // this.setState({ editingText: false });
+    }
+
+    onCheckboxClick() {
+        document.execCommand('insertUnorderedList');
+    }
+
+    onFontClick(evt) {
+        evt.preventDefault();
+        console.log(evt);
+    }
+
+    onTexareaKeyDown(evt) {
+        
     }
 
     render() {
@@ -15,9 +54,19 @@ class Composer extends Component {
 
         return (
             <main className={className.join(' ')}>
+                <ComposerTopToolbar
+                    goToMenu={this.props.goToMenu}
+                    onCheckboxClick={this.onCheckboxClick}
+                    onFontClick={this.onFontClick} />
                 <Scrollable>
-                    <h1>Composer</h1>
+                    <div className="composer__textarea"
+                         contentEditable
+                         onFocus={this.onTextareaFocus}
+                         onBlur={this.onTextareaBlur}
+                         onKeyDown={this.onTexareaKeyDown}>
+                    </div>
                 </Scrollable>
+                <ComposerBottomToolbar />
             </main>
         )
     }
@@ -25,7 +74,8 @@ class Composer extends Component {
 
 Composer.propTypes = {
     className: PropTypes.string,
-    foreground: PropTypes.bool
+    foreground: PropTypes.bool,
+    goToMenu: PropTypes.func.isRequired
 };
 
 export default Composer;

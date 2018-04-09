@@ -4,21 +4,20 @@ import Toolbar from './toolbar';
 import ToolbarSpacer from './toolbarSpacer';
 import ToolbarButton from './toolbarButton';
 
-class MenuBottomToolbar extends Component {
+class ComposerBottomToolbar extends Component {
     render() {
         return (
             <Toolbar>
+                <ToolbarButton label="Delete"
+                               icon="far fa-trash-alt" />
                 <ToolbarSpacer />
-                <ToolbarButton label="New Note"
-                               icon="far fa-edit"
-                               onClick={this.props.goToNewNote} />
             </Toolbar>
         )
     }
 }
 
-MenuBottomToolbar.propTypes = {
-    goToNewNote: PropTypes.func.isRequired
+ComposerBottomToolbar.propTypes = {
+    enabled: PropTypes.bool
 }
 
-export default MenuBottomToolbar;
+export default ComposerBottomToolbar;
