@@ -1,69 +1,44 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Toolbar from './toolbar';
 import ToolbarButton from './toolbarButton';
 import ToolbarSpacer from './toolbarSpacer';
 
 class ComposerFontToolbar extends Component {
-    constructor(props) {
-        super(props);
-
-        this.onTitleClick = this.onTitleClick.bind(this);
-        this.onSubtitleClick = this.onSubtitleClick.bind(this);
-        this.onNormalClick = this.onNormalClick.bind(this);
-        this.onBoldClick = this.onBoldClick.bind(this);
-        this.onItalicClick = this.onItalicClick.bind(this);
-        this.onUnderlineClick = this.onUnderlineClick.bind(this);
-    }
-
-    onTitleClick() {
-        document.execCommand('formatBlock', false, 'H1');
-    }
-
-    onSubtitleClick() {
-        document.execCommand('formatBlock', false, 'H2');
-    }
-
-    onNormalClick() {
-        document.execCommand('formatBlock', false, 'p');
-    }
-
-    onBoldClick() {
-        document.execCommand('bold');
-    }
-
-    onItalicClick() {
-        document.execCommand('italic');
-    }
-
-    onUnderlineClick() {
-        document.execCommand('underline');
-    }
-
     render() {
         return (
             <Toolbar dark>
                 <ToolbarButton dark
-                               onClick={this.onTitleClick}
+                               onClick={this.props.onTitleClick}
                                label="Title Style"><b>H1</b></ToolbarButton>
                 <ToolbarButton dark
-                               onClick={this.onSubtitleClick.bind(this)}
+                               onClick={this.props.onSubtitleClick}
                                label="Subtitle Style"><i>H2</i></ToolbarButton>
                 <ToolbarButton dark
-                               onClick={this.onNormalClick.bind(this)}
+                               onClick={this.props.onNormalClick}
                                label="Normal Style">Normal</ToolbarButton>
                 <ToolbarSpacer />
                 <ToolbarButton dark
-                               onClick={this.onBoldClick.bind(this)}
+                               onClick={this.props.onBoldClick}
                                label="Bold"><b>B</b></ToolbarButton>
                 <ToolbarButton dark
-                               onClick={this.onItalicClick.bind(this)}
+                               onClick={this.props.onItalicClick}
                                label="Italic"><i>I</i></ToolbarButton>
                 <ToolbarButton dark
-                               onClick={this.onUnderlineClick.bind(this)}
+                               onClick={this.props.onUnderlineClick}
                                labek="Underline"><u>U</u></ToolbarButton>
             </Toolbar>
         )
     }
+}
+
+ComposerFontToolbar.propTypes = {
+    onTitleClick: PropTypes.func.isRequired,
+    onSubtitleClick: PropTypes.func.isRequired,
+    onNormalClick: PropTypes.func.isRequired,
+    onBoldClick: PropTypes.func.isRequired,
+    onItalicClick: PropTypes.func.isRequired,
+    onUnderlineClick: PropTypes.func.isRequired
 }
 
 export default ComposerFontToolbar;

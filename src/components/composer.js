@@ -26,6 +26,12 @@ class Composer extends Component {
         this.onCheckboxClick = this.onCheckboxClick.bind(this);
         this.onFontClick = this.onFontClick.bind(this);
         this.onTexareaKeyDown = this.onTexareaKeyDown.bind(this);
+        this.onTitleClick = this.onTitleClick.bind(this);
+        this.onSubtitleClick = this.onSubtitleClick.bind(this);
+        this.onNormalClick = this.onNormalClick.bind(this);
+        this.onBoldClick = this.onBoldClick.bind(this);
+        this.onItalicClick = this.onItalicClick.bind(this);
+        this.onUnderlineClick = this.onUnderlineClick.bind(this);
     }
 
     onTextareaFocus() {
@@ -38,10 +44,41 @@ class Composer extends Component {
 
     onCheckboxClick() {
         document.execCommand('insertUnorderedList');
+        this.$textarea.focus();
     }
 
     onFontClick() {
-        this.setState({ showFontToolbar: ! this.state.showFontToolbar });
+        this.setState({ showFontToolbar: ! this.state.showFontToolbar }, () => this.$textarea.focus());
+    }
+
+    onTitleClick() {
+        document.execCommand('formatBlock', false, 'h1');
+        this.$textarea.focus();
+    }
+
+    onSubtitleClick() {
+        document.execCommand('formatBlock', false, 'h2');
+        this.$textarea.focus();
+    }
+
+    onNormalClick() {
+        document.execCommand('formatBlock', false, 'p');
+        this.$textarea.focus();
+    }
+
+    onBoldClick() {
+        document.execCommand('bold');
+        this.$textarea.focus();
+    }
+
+    onItalicClick() {
+        document.execCommand('italic');
+        this.$textarea.focus();
+    }
+
+    onUnderlineClick() {
+        document.execCommand('underline');
+        this.$textarea.focus();
     }
 
     onTexareaKeyDown(evt) {
@@ -62,12 +99,19 @@ class Composer extends Component {
                 <Scrollable>
                     <div className="composer__textarea"
                          contentEditable
+                         ref={el => this.$textarea = el}
                          onFocus={this.onTextareaFocus}
                          onBlur={this.onTextareaBlur}
                          onKeyDown={this.onTexareaKeyDown}>
                     </div>
                 </Scrollable>
-                {this.state.showFontToolbar ? <ComposerFontToolbar /> : null}
+                {this.state.showFontToolbar ?
+                    <ComposerFontToolbar onTitleClick={this.onTitleClick}
+                                         onSubtitleClick={this.onSubtitleClick}
+                                         onNormalClick={this.onNormalClick}
+                                         onBoldClick={this.onBoldClick}
+                                         onItalicClick={this.onItalicClick}
+                                         onUnderlineClick={this.onUnderlineClick} /> : null}
                 <ComposerBottomToolbar />
             </main>
         )
