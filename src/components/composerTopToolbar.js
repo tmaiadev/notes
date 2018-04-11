@@ -16,8 +16,8 @@ class ComposerTopToolbar extends Component {
                 </ToolbarButton>
                 <ToolbarSpacer />
                 <ToolbarButton label="Toogle Checkbox List"
-                           icon="fas fa-list-ul"
-                           onClick={this.props.onCheckboxClick} />
+                               icon="fas fa-list-ul"
+                               onClick={this.props.onCheckboxClick} />
                 <ToolbarButton label="Font Style"
                                icon="fas fa-font"
                                onClick={this.props.onFontClick} />

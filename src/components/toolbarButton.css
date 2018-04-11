@@ -15,6 +15,10 @@
     cursor: not-allowed;
 }
 
+.toolbar-button--dark {
+    color: #212121;
+}
+
 .toolbar-button__icon {
     font-size: 22px;
 }

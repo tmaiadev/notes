@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Scrollable from './scollable';
 import ComposerTopToolbar from './composerTopToolbar';
 import ComposerBottomToolbar from './composerBottomToolbar';
+import ComposerFontToolbar from './composerFontToolbar';
 import './composer.css';
 
 const STYLES = {
@@ -16,7 +17,8 @@ class Composer extends Component {
         super(props);
 
         this.state = {
-            content: ""
+            content: "",
+            showFontToolbar: false
         }
 
         this.onTextareaBlur = this.onTextareaBlur.bind(this);
@@ -38,9 +40,8 @@ class Composer extends Component {
         document.execCommand('insertUnorderedList');
     }
 
-    onFontClick(evt) {
-        evt.preventDefault();
-        console.log(evt);
+    onFontClick() {
+        this.setState({ showFontToolbar: ! this.state.showFontToolbar });
     }
 
     onTexareaKeyDown(evt) {
@@ -66,6 +67,7 @@ class Composer extends Component {
                          onKeyDown={this.onTexareaKeyDown}>
                     </div>
                 </Scrollable>
+                {this.state.showFontToolbar ? <ComposerFontToolbar /> : null}
                 <ComposerBottomToolbar />
             </main>
         )

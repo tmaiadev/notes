@@ -5,3 +5,7 @@
     box-sizing: border-box;
     height: 50px;
 }
+
+.toolbar--dark {
+    background-color: #CCC;
+}

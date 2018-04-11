@@ -25,6 +25,7 @@ class ToolbarButton extends Component {
         let componentClassName = 'toolbar-button';
         if (this.props.mobileOnly) componentClassName += ' toolbar-button--mobile-only';
         if (this.props.disabled) componentClassName += ' toolbar-button--disabled';
+        if (this.props.dark) componentClassName += ' toolbar-button--dark';
 
         return (
             <button type="button"
@@ -45,7 +46,7 @@ ToolbarButton.propTypes = {
     icon: PropTypes.string,
     smallIcon: PropTypes.bool,
     mobileOnly: PropTypes.bool,
-    children: PropTypes.string,
+    children: PropTypes.any,
     disabled: PropTypes.bool
 }
 
