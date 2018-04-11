@@ -1,6 +1,6 @@
 .composer {
     display: grid;
-    grid-template-rows: 50px auto 50px;
+    grid-template-rows: 50px 15px auto 50px;
     grid-auto-rows: 50px;
     position: absolute;
     top: 0px;
@@ -61,4 +61,10 @@
 .composer__textarea h2 {
     font-weight: normal;
     font-style: italic;
+}
+
+.composer__last-update {
+    color: #CCC;
+    font-size: 12px;
+    text-align: center;
 }

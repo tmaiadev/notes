@@ -96,6 +96,9 @@ class Composer extends Component {
                     goToMenu={this.props.goToMenu}
                     onCheckboxClick={this.onCheckboxClick}
                     onFontClick={this.onFontClick} />
+                <div className="composer__last-update">
+                    {new Date().toString().split(' GMT')[0]}
+                </div>
                 <Scrollable>
                     <div className="composer__textarea"
                          contentEditable
