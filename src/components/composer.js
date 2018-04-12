@@ -6,19 +6,14 @@ import ComposerBottomToolbar from './composerBottomToolbar';
 import ComposerFontToolbar from './composerFontToolbar';
 import './composer.css';
 
-const STYLES = {
-    DEFAULT: 'DEFAULT',
-    TITLE: 'TITLE',
-    SUBTITLE: 'SUBTITLE'
-}
-
 class Composer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             content: "",
-            showFontToolbar: false
+            showFontToolbar: false,
+            active: false
         }
 
         this.onTextareaBlur = this.onTextareaBlur.bind(this);
@@ -32,6 +27,12 @@ class Composer extends Component {
         this.onBoldClick = this.onBoldClick.bind(this);
         this.onItalicClick = this.onItalicClick.bind(this);
         this.onUnderlineClick = this.onUnderlineClick.bind(this);
+        this.returnToMenu = this.returnToMenu.bind(this);
+    }
+
+    componentDidMount() {
+        setTimeout(() => this.setState({ active: true }), 16)
+        
     }
 
     onTextareaFocus() {
@@ -85,15 +86,22 @@ class Composer extends Component {
         
     }
 
+    returnToMenu() {
+        this.setState({ active: false }, () => {
+            // Wait for animation to end before changing url
+            setTimeout(() => this.props.history.push('/'), 300);
+        });
+    }
+
     render() {
         const className = ['composer'];
         if (this.props.className) className.push(this.props.className);
-        if (this.props.foreground) className.push('composer--foreground');
+        if (this.state.active) className.push('composer--active');
 
         return (
             <main className={className.join(' ')}>
                 <ComposerTopToolbar
-                    goToMenu={this.props.goToMenu}
+                    goToMenu={this.returnToMenu}
                     onCheckboxClick={this.onCheckboxClick}
                     onFontClick={this.onFontClick} />
                 <div className="composer__last-update">
@@ -123,8 +131,7 @@ class Composer extends Component {
 
 Composer.propTypes = {
     className: PropTypes.string,
-    foreground: PropTypes.bool,
-    goToMenu: PropTypes.func.isRequired
+    history: PropTypes.object.isRequired
 };
 
 export default Composer;

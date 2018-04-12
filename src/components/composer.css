@@ -31,14 +31,14 @@
     }
 }
 
-.composer--foreground {
+.composer--active {
     transform: translateX(0%);
     pointer-events: initial;
     z-index: 1;
 }
 
 @media (min-width: 768px) {
-    .composer--foreground {
+    .composer--active {
         animation: none;
         z-index: 0;
     }
