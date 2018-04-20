@@ -1,3 +1,5 @@
+const { firebase } = window;
+
 const config = {
     apiKey: "xxx",
     authDomain: "xxx",
@@ -7,5 +9,9 @@ const config = {
     messagingSenderId: "xxx"
 };
 
-window.firebase.initializeApp(config);
-export default window.firebase;
+firebase.initializeApp(config);
+
+export const auth = firebase.auth();
+export const storage = firebase.storage();
+export const db = firebase.database();
+export const GoogleAuthProvider = firebase.auth.GoogleAuthProvider;

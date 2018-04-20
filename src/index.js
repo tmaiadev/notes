@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
-import firebase from './firebase';
+import { GoogleAuthProvider, auth } from './firebase';
 
 function initializeApp(user) {
     ReactDOM.render(<App user={user} />, document.getElementById('root'));
@@ -9,8 +9,8 @@ function initializeApp(user) {
 
 function signInWithGoogle() {
     try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider);
+        const provider = new GoogleAuthProvider();
+        auth.signInWithPopup(provider);
     } catch (e) {
         alert('An error occurred while trying to sign in. Try again.');
         window.location.reload();
@@ -25,7 +25,7 @@ function loadIcons() {
 }
 
 window.addEventListener('load', () => {
-    firebase.auth().onAuthStateChanged(function(user) {
+    auth.onAuthStateChanged(function(user) {
         if (user) {
           initializeApp(user);
           loadIcons();

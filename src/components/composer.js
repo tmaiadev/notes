@@ -4,8 +4,8 @@ import Scrollable from './scollable';
 import ComposerTopToolbar from './composerTopToolbar';
 import ComposerBottomToolbar from './composerBottomToolbar';
 import ComposerFontToolbar from './composerFontToolbar';
+import { db, auth } from '../firebase';
 import './composer.css';
-import firebase from '../firebase';
 
 class Composer extends Component {
     constructor(props) {
@@ -37,9 +37,8 @@ class Composer extends Component {
     }
 
     componentDidMount() {
-        const uid = firebase.auth().currentUser.uid;
+        const uid = auth.currentUser.uid;
         const noteid = this.props.match.params.note_id;
-        const db = firebase.database();
 
         this.noteRef = db.ref(`${uid}/notes/${noteid}`);
         this.noteRef.once('value', snapshot => {

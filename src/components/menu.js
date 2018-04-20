@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NoteList from './noteList';
-import Firebase from '../firebase';
+import { db, auth } from '../firebase';
 import MenuTopToolbar from './menuTopToolbar';
 import MenuBottomToolbar from './menuBottomToolbar';
 import MenuSearch from './menuSearch';
@@ -22,8 +22,7 @@ class Menu extends Component {
     }
 
     componentDidMount() {
-        const userID = Firebase.auth().currentUser.uid;
-        const db = Firebase.database();
+        const userID = auth.currentUser.uid;
 
         this.notesRef = db.ref(`${userID}/notes`);
         this.notesRef.on('value', this.onNotesUpdate);

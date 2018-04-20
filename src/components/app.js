@@ -4,7 +4,7 @@ import { Router, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import Menu from './menu';
 import Composer from './composer';
-import db from '../db';
+import { db } from '../firebase';
 import './app.css';
 
 class App extends Component {
