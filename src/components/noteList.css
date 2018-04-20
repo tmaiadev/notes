@@ -1,0 +1,32 @@
+.note-list__item {
+    display: block;
+    color: #212121;
+    text-decoration: none;
+    padding-bottom: 15px;
+    border-bottom: solid thin #EEEEEE;
+}
+
+.note-list__item:last-child {
+    border-bottom: none;
+}
+
+.note-list__item:hover {
+    color: #616161;
+}
+
+.note-list__item__title {
+    margin-bottom: 7px;
+}
+
+.note-list__item__description {
+    display: block;
+    max-height: 56px;
+    overflow: hidden;
+    color: #616161;
+}
+
+.note-list__item__date {
+    color: #616161;
+    font-size: 12px;
+    margin-top: 7px;
+}

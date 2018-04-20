@@ -7,58 +7,59 @@ import Composer from './composer';
 import db from '../db';
 import './app.css';
 
-const WINDOW = {
-    MENU: 'MENU',
-    COMPOSER: 'COMPOSER'
-};
-
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            notes: []
+            notes: [],
+            showComposer: true
         }
 
         this.history = createHistory();
         this.notesRef = null;
 
         this.goToNewNote = this.goToNewNote.bind(this);
-        this.goToMenu = this.goToMenu.bind(this);
     }
 
     componentDidMount() {
-        this.notesRef = db.ref(`user/${this.props.user.uid}/notes`);
+        // Everytime the URL changes
+        // we have to rerender the composer
+        this.history.listen(() => {
+            this.setState({ showComposer: false }, () => {
+                this.setState({ showComposer: true })
+            })
+        })
     }
 
     goToNewNote() {
-        const key = this.notesRef.push().key;
+        const userID = this.props.user.uid;
+        const key = db.ref(`${userID}/notes`).push().key;
         const data = {
             content: '',
             lastUpdate: new Date() - 1
         };
 
-        db.ref(`user/${this.props.user.uid}/notes/${key}`).set(data);
-        this.history.push(`/${key}`);
-    }
-
-    goToMenu() {
-        this.setState({ activeWindow: WINDOW.MENU });
+        db.ref(`${userID}/notes/${key}`).set(data);
+        this.history.push('/' + key);
     }
 
     render() {
         const composer = props => {
             return <Composer className="app__main"
                              goToMenu={this.goToMenu}
-                             history={this.history} />
+                             history={this.history}
+                             {...props} />
         }
 
         return (
             <Router history={this.history}>
                 <div className="app">
                     <Menu className="app__menu"
-                          goToNewNote={this.goToNewNote} />
-                    <Route path="/:note_id" component={composer} />
+                          goToNewNote={this.goToNewNote}
+                          notes={this.state.notes} />
+                    {this.state.showComposer ?
+                        <Route path="/:note_id" component={composer} /> : null}
                 </div>
             </Router>
         )

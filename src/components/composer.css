@@ -14,6 +14,8 @@
     will-change: transform;
     transition: all .3s ease-in;
     box-shadow: -2px 3px 15px rgba(0, 0, 0, .3);
+    pointer-events: none;
+    filter: grayscale(100%);
 }
 
 @media (min-width: 768px) {
@@ -35,6 +37,8 @@
     transform: translateX(0%);
     pointer-events: initial;
     z-index: 1;
+    pointer-events: auto;
+    filter: grayscale(0%);
 }
 
 @media (min-width: 768px) {

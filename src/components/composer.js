@@ -5,6 +5,7 @@ import ComposerTopToolbar from './composerTopToolbar';
 import ComposerBottomToolbar from './composerBottomToolbar';
 import ComposerFontToolbar from './composerFontToolbar';
 import './composer.css';
+import firebase from '../firebase';
 
 class Composer extends Component {
     constructor(props) {
@@ -12,12 +13,17 @@ class Composer extends Component {
 
         this.state = {
             content: "",
+            lastUpdate: new Date(),
             showFontToolbar: false,
             active: false
         }
 
+        this.lastInput = 0;
+
+        this.save = this.save.bind(this);
         this.onTextareaBlur = this.onTextareaBlur.bind(this);
         this.onTextareaFocus = this.onTextareaFocus.bind(this);
+        this.onTextareaInput = this.onTextareaInput.bind(this);
         this.onCheckboxClick = this.onCheckboxClick.bind(this);
         this.onFontClick = this.onFontClick.bind(this);
         this.onTexareaKeyDown = this.onTexareaKeyDown.bind(this);
@@ -31,8 +37,33 @@ class Composer extends Component {
     }
 
     componentDidMount() {
-        setTimeout(() => this.setState({ active: true }), 16)
-        
+        const uid = firebase.auth().currentUser.uid;
+        const noteid = this.props.match.params.note_id;
+        const db = firebase.database();
+
+        this.noteRef = db.ref(`${uid}/notes/${noteid}`);
+        this.noteRef.once('value', snapshot => {
+            const value = snapshot.val();
+            if ( ! value || this.state.active) return;
+            
+            const {
+                content,
+                lastUpdate
+            } = snapshot.val();
+
+            this.$textarea.innerHTML = content;
+
+            this.setState({
+                active: true,
+                lastUpdate
+            })
+        });
+    }
+
+    save() {
+        const content = this.$textarea.innerHTML;
+        const lastUpdate = new Date() - 1;
+        this.noteRef.set({ content, lastUpdate });
     }
 
     onTextareaFocus() {
@@ -41,6 +72,15 @@ class Composer extends Component {
 
     onTextareaBlur() {
         // this.setState({ editingText: false });
+    }
+
+    onTextareaInput() {
+        this.lastInput = new Date();
+        setTimeout(() => {
+            const diff = new Date() - this.lastInput;
+            if (diff < 1000) return;
+            this.save();
+        }, 1000);
     }
 
     onCheckboxClick() {
@@ -109,11 +149,12 @@ class Composer extends Component {
                 </div>
                 <Scrollable>
                     <div className="composer__textarea"
-                         contentEditable
+                         contentEditable={this.state.active}
                          ref={el => this.$textarea = el}
                          onFocus={this.onTextareaFocus}
                          onBlur={this.onTextareaBlur}
-                         onKeyDown={this.onTexareaKeyDown}>
+                         onKeyDown={this.onTexareaKeyDown}
+                         onInput={this.onTextareaInput}>
                     </div>
                 </Scrollable>
                 {this.state.showFontToolbar ?
@@ -131,7 +172,10 @@ class Composer extends Component {
 
 Composer.propTypes = {
     className: PropTypes.string,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.object.isRequired
+    })
 };
 
 export default Composer;
