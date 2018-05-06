@@ -48,6 +48,10 @@
     }
 }
 
+.composer__scrollview {
+    position: relative;
+}
+
 .composer__textarea {
     padding: 15px;
     min-height: 100%;
@@ -56,6 +60,32 @@
 
 .composer__textarea ul {
     list-style-type: circle;
+    display: block;
+}
+
+.composer__textarea ul li {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    line-height: 30px;
+    margin-bottom: 7px;
+    position: relative;
+}
+
+.composer__textarea input[type=checkbox] {
+    display: block;
+    position: absolute;
+    appearance: none;
+    width: 23px;
+    height: 23px;
+    border: solid thin #CCC;
+    border-radius: 100%;
+}
+
+.composer__textarea input[type=checkbox]:checked {
+    background-color: var(--primary-color);
+    border-color: #FFF;
+    box-shadow: 0px 0px 0px 1px var(--primary-color);
 }
 
 .composer__textarea h1 {

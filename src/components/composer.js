@@ -21,8 +21,6 @@ class Composer extends Component {
         this.lastInput = 0;
 
         this.save = this.save.bind(this);
-        this.onTextareaBlur = this.onTextareaBlur.bind(this);
-        this.onTextareaFocus = this.onTextareaFocus.bind(this);
         this.onTextareaInput = this.onTextareaInput.bind(this);
         this.onCheckboxClick = this.onCheckboxClick.bind(this);
         this.onFontClick = this.onFontClick.bind(this);
@@ -59,21 +57,72 @@ class Composer extends Component {
         });
     }
 
+    createCheckbox(id) {
+        // Create checkbox
+        const $checkbox = document.createElement('input');
+        $checkbox.type = 'checkbox';
+        $checkbox.setAttribute('aria-labelledby', id);
+        $checkbox.style.left = 15 + 'px';
+
+        // Append it on the textarea
+        this.$textarea.appendChild($checkbox);
+    }
+
+    manageCheckboxes() {
+        // Search for all list items
+        Array.from(this.$textarea.querySelectorAll('li'))
+        .forEach($li => {
+            // If the list item does not have an ID
+            // it means that it is the first one.
+            // We id the list item and create a checkbox for it
+            if ( ! $li.id) {
+                $li.id = (new Date() - 1).toString(32);
+                this.createCheckbox($li.id);
+            } else {
+                // If the list item has an ID, we check
+                // if there are other list items with the same id,
+                // for the ID is duplicated when the user
+                // hits enter to create a new list item. 
+                // Then we create a new ID for the new list item
+                // and a corresponding checkbox
+                const sameIDElements = this.$textarea.querySelectorAll(`li[id="${$li.id}"]`);
+                if (sameIDElements.length >= 2) {
+                    const $newLi = sameIDElements[1];
+                    $newLi.id = (new Date() - 1).toString(32);
+                    this.createCheckbox($newLi.id);
+                }
+            }
+        });
+
+        // Get all checkboxes
+        Array.from(this.$textarea.querySelectorAll('input[type=checkbox]'))
+        .forEach($checkbox => {
+            const liId = $checkbox.getAttribute('aria-labelledby');
+            const $li = document.getElementById(liId);
+
+            if ($li) {
+                // If we have a list item, we position it correctly.
+                // We have to do this everytime because the user can
+                // create other list items or break a line, which
+                // messes up the positioning of the checkboxes
+                $checkbox.style.top = $li.offsetTop + 'px';
+            } else {
+                // If corresponding list item does not exist
+                // delete the checkbox
+                 this.$textarea.removeChild($checkbox);
+            }
+        });
+    }
+
     save() {
         const content = this.$textarea.innerHTML;
         const lastUpdate = new Date() - 1;
         this.noteRef.set({ content, lastUpdate });
     }
 
-    onTextareaFocus() {
-
-    }
-
-    onTextareaBlur() {
-        // this.setState({ editingText: false });
-    }
-
     onTextareaInput() {
+        this.manageCheckboxes();
+
         this.lastInput = new Date();
         setTimeout(() => {
             const diff = new Date() - this.lastInput;
@@ -146,12 +195,10 @@ class Composer extends Component {
                 <div className="composer__last-update">
                     {new Date().toString().split(' GMT')[0]}
                 </div>
-                <Scrollable>
+                <Scrollable className="composer__scrollview">
                     <div className="composer__textarea"
                          contentEditable={this.state.active}
                          ref={el => this.$textarea = el}
-                         onFocus={this.onTextareaFocus}
-                         onBlur={this.onTextareaBlur}
                          onKeyDown={this.onTexareaKeyDown}
                          onInput={this.onTextareaInput}>
                     </div>
