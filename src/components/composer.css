@@ -59,12 +59,11 @@
 }
 
 .composer__textarea ul {
-    list-style-type: circle;
+    list-style-type: none;
     display: block;
 }
 
 .composer__textarea ul li {
-    display: block;
     width: 100%;
     min-height: 30px;
     line-height: 30px;
