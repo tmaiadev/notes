@@ -52,6 +52,19 @@ class Composer extends Component {
 
             this.$textarea.innerHTML = content;
 
+            // Explicitly describe on the DOM that the checkbox
+            // is checked. Otherwise the checkbox state is not saved.
+            Array.from(this.$textarea.querySelectorAll('input[type=checkbox]'))
+            .forEach($checkbox => {
+                $checkbox.addEventListener('click', function() {
+                    if (this.checked) {
+                        this.setAttribute('checked', 'true');
+                    } else {
+                        this.removeAttribute('checked');
+                    }
+                })
+            });
+
             this.setState({
                 active: true,
                 lastUpdate
@@ -65,6 +78,17 @@ class Composer extends Component {
         $checkbox.type = 'checkbox';
         $checkbox.setAttribute('aria-labelledby', id);
         $checkbox.style.left = 15 + 'px';
+
+        // This listener is needed to explicitly describe
+        // on the DOM that the checkbox is checked. Otherwise
+        // the checkbox state is not saved.
+        $checkbox.addEventListener('click', function() {
+            if (this.checked) {
+                this.setAttribute('checked', 'true');
+            } else {
+                this.removeAttribute('checked');
+            }
+        });
 
         // Append it on the textarea
         this.$textarea.appendChild($checkbox);

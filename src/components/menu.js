@@ -76,7 +76,6 @@ class Menu extends Component {
 
         return (
             <aside className={className}>
-                <MenuTopToolbar />
                 <Scrollable className="menu__main">
                     <h2>Notes</h2>
                     <MenuSearch onChange={this.onSearchChange} />
