@@ -15,7 +15,10 @@ class ComposerTopToolbar extends Component {
                     Return
                 </ToolbarButton>
                 <ToolbarSpacer />
-                <ToolbarButton label="Toogle Checkbox List"
+                <ToolbarButton label="Attach file"
+                               icon="fas fa-paperclip"
+                               onClick={this.props.onAttachmentClick} />
+                <ToolbarButton label="Checkbox List"
                                icon="fas fa-list-ul"
                                onClick={this.props.onCheckboxClick} />
                 <ToolbarButton label="Font Style"
@@ -30,7 +33,8 @@ ComposerTopToolbar.propTypes = {
     goToMenu: PropTypes.func.isRequired,
     checklist: PropTypes.bool,
     onCheckboxClick: PropTypes.func.isRequired,
-    onFontClick: PropTypes.func.isRequired
+    onFontClick: PropTypes.func.isRequired,
+    onAttachmentClick: PropTypes.func.isRequired
 }
 
 export default ComposerTopToolbar;

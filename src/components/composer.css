@@ -88,6 +88,11 @@
     box-shadow: 0px 0px 0px 1px var(--primary-color);
 }
 
+.composer__textarea img {
+    width: 640px;
+    max-width: 100%;
+}
+
 .composer__textarea h1 {
     margin-top: 0px;
 }
@@ -101,4 +106,16 @@
     color: #CCC;
     font-size: 12px;
     text-align: center;
+}
+
+.composer__file {
+    display: block;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    pointer-events: none;
+    appearance: none;
 }

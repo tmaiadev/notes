@@ -24,6 +24,8 @@ class Composer extends Component {
         this.onTextareaInput = this.onTextareaInput.bind(this);
         this.onCheckboxClick = this.onCheckboxClick.bind(this);
         this.onFontClick = this.onFontClick.bind(this);
+        this.onAttachmentClick = this.onAttachmentClick.bind(this);
+        this.onAttachmentSelected = this.onAttachmentSelected.bind(this);
         this.onTexareaKeyDown = this.onTexareaKeyDown.bind(this);
         this.onTitleClick = this.onTitleClick.bind(this);
         this.onSubtitleClick = this.onSubtitleClick.bind(this);
@@ -140,6 +142,41 @@ class Composer extends Component {
         this.setState({ showFontToolbar: ! this.state.showFontToolbar }, () => this.$textarea.focus());
     }
 
+    onAttachmentClick() {
+        this.$file.click();
+    }
+
+    onAttachmentSelected() {
+        if (this.$file.files.length === 0) return;
+
+        const file = this.$file.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // Focus on the composer
+            this.$textarea.focus();
+
+            // Create a new range
+            const range = document.createRange();
+
+            // Focus on the last child of the composer
+            const childNodes = this.$textarea.childNodes;
+            const lastNode = childNodes[childNodes.length - 1];
+            range.setStart(lastNode, lastNode.childNodes.length);
+            range.collapse(true);
+
+            // Selection gets new range
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+
+            // Add a new line and insert the image
+            document.execCommand('insertBrOnReturn', null);
+            document.execCommand('insertImage', null, reader.result);
+        }
+        reader.readAsDataURL(file);
+        this.$file.value = "";
+    }
+
     onTitleClick() {
         document.execCommand('formatBlock', false, 'h1');
         this.$textarea.focus();
@@ -188,10 +225,16 @@ class Composer extends Component {
 
         return (
             <main className={className.join(' ')}>
+                <input type="file"
+                       accept="image/*"
+                       className="composer__file"
+                       ref={el => this.$file = el}
+                       onChange={this.onAttachmentSelected} />
                 <ComposerTopToolbar
                     goToMenu={this.returnToMenu}
                     onCheckboxClick={this.onCheckboxClick}
-                    onFontClick={this.onFontClick} />
+                    onFontClick={this.onFontClick}
+                    onAttachmentClick={this.onAttachmentClick} />
                 <div className="composer__last-update">
                     {new Date().toString().split(' GMT')[0]}
                 </div>
