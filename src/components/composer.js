@@ -92,6 +92,12 @@ class Composer extends Component {
                     const $newLi = sameIDElements[1];
                     $newLi.id = (new Date() - 1).toString(32);
                     this.createCheckbox($newLi.id);
+                } else {
+                    // Sometimes, if the user undo a deleted list (ctrl + z)
+                    // the checkbox is not created. So we check if the li
+                    // have a corresponding checkbox. If not, create one.
+                    const $checkbox = this.$textarea.querySelector(`input[aria-labelledby="${$li.id}"]`);
+                    if ( ! $checkbox) this.createCheckbox($li.id);
                 }
             }
         });
