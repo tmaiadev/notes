@@ -84,7 +84,7 @@
 
 .composer__textarea input[type=checkbox]:checked {
     background-color: var(--primary-color);
-    border-color: #FFF;
+    border: solid 3px #FFF;
     box-shadow: 0px 0px 0px 1px var(--primary-color);
 }
 
