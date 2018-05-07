@@ -5,11 +5,24 @@ import ToolbarSpacer from './toolbarSpacer';
 import ToolbarButton from './toolbarButton';
 
 class ComposerBottomToolbar extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.onDeleteClick = this.onDeleteClick.bind(this);
+    }
+
+    onDeleteClick() {
+        if (window.confirm("Are you sure you want to delete this note?")) {
+            this.props.onDeleteClick();
+        }
+    }
+
     render() {
         return (
             <Toolbar>
                 <ToolbarButton label="Delete"
-                               icon="far fa-trash-alt" />
+                               icon="far fa-trash-alt"
+                               onClick={this.onDeleteClick} />
                 <ToolbarSpacer />
             </Toolbar>
         )
@@ -17,7 +30,7 @@ class ComposerBottomToolbar extends Component {
 }
 
 ComposerBottomToolbar.propTypes = {
-    enabled: PropTypes.bool
+    onDeleteClick: PropTypes.func.isRequired
 }
 
 export default ComposerBottomToolbar;

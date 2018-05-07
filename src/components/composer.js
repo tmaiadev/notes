@@ -26,13 +26,13 @@ class Composer extends Component {
         this.onFontClick = this.onFontClick.bind(this);
         this.onAttachmentClick = this.onAttachmentClick.bind(this);
         this.onAttachmentSelected = this.onAttachmentSelected.bind(this);
-        this.onTexareaKeyDown = this.onTexareaKeyDown.bind(this);
         this.onTitleClick = this.onTitleClick.bind(this);
         this.onSubtitleClick = this.onSubtitleClick.bind(this);
         this.onNormalClick = this.onNormalClick.bind(this);
         this.onBoldClick = this.onBoldClick.bind(this);
         this.onItalicClick = this.onItalicClick.bind(this);
         this.onUnderlineClick = this.onUnderlineClick.bind(this);
+        this.onDeleteClick = this.onDeleteClick.bind(this);
         this.returnToMenu = this.returnToMenu.bind(this);
     }
 
@@ -213,8 +213,13 @@ class Composer extends Component {
         this.$textarea.focus();
     }
 
-    onTexareaKeyDown(evt) {
-        
+    onDeleteClick() {
+        this.noteRef.remove();
+        this.setState({ active: false }, () => {
+            setTimeout(() => {
+                this.props.history.push('/');
+            }, 1000);
+        });
     }
 
     returnToMenu() {
@@ -259,7 +264,7 @@ class Composer extends Component {
                                          onBoldClick={this.onBoldClick}
                                          onItalicClick={this.onItalicClick}
                                          onUnderlineClick={this.onUnderlineClick} /> : null}
-                <ComposerBottomToolbar />
+                <ComposerBottomToolbar onDeleteClick={this.onDeleteClick} />
             </main>
         )
     }

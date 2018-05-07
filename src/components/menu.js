@@ -30,7 +30,10 @@ class Menu extends Component {
 
     onNotesUpdate(snapshot) {
         const notes = snapshot.val();
-        if ( ! notes) return;
+        if ( ! notes) {
+            this.setState({ notes: [] });
+            return;
+        };
 
         this.setState({
             notes: Object.keys(notes)
