@@ -69,7 +69,7 @@ class Menu extends Component {
 
         const notes = this.state
         .notes
-        .filter(n => ! this.state.searchQuery || n.rawText.toLowerCase().indexOf(n.state.searchQuery.toLowerCase()) !== -1);
+        .filter(n => ! this.state.searchQuery || n.rawText.toLowerCase().indexOf(this.state.searchQuery.toLowerCase()) !== -1);
 
         return (
             <aside className={className}>
