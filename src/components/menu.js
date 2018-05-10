@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NoteList from './noteList';
 import { db, auth } from '../firebase';
-import MenuTopToolbar from './menuTopToolbar';
 import MenuBottomToolbar from './menuBottomToolbar';
 import MenuSearch from './menuSearch';
 import Scrollable from './scollable';
@@ -81,7 +80,9 @@ class Menu extends Component {
                     <MenuSearch onChange={this.onSearchChange} />
                     <NoteList notes={notes} />
                 </Scrollable>
-                <MenuBottomToolbar goToNewNote={this.props.goToNewNote} />
+                <MenuBottomToolbar
+                    goToNewNote={this.props.goToNewNote}
+                    goToAbout={this.props.goToAbout} />
             </aside>
         )
     }

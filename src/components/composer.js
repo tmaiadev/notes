@@ -68,6 +68,12 @@ class Composer extends Component {
             this.setState({
                 active: true,
                 lastUpdate
+            }, () => {
+                try {
+                    this.$textarea.focus();
+                } catch (e) {
+                    console.log('Could not focus on textarea', e);
+                }
             })
         });
     }

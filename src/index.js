@@ -32,6 +32,7 @@ window.addEventListener('load', () => {
         } else {
             const $cta = document.querySelector('.js-cta');
             $cta.classList.remove('button--disabled');
+            $cta.innerHTML = 'Continue';
             $cta.disabled = false;
             $cta.addEventListener('click', signInWithGoogle);
         }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import Menu from './menu';
 import Composer from './composer';
+import About from './about';
 import { db } from '../firebase';
 import './app.css';
 
@@ -20,6 +21,7 @@ class App extends Component {
         this.notesRef = null;
 
         this.goToNewNote = this.goToNewNote.bind(this);
+        this.goToAbout = this.goToAbout.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +46,10 @@ class App extends Component {
         this.history.push('/' + key);
     }
 
+    goToAbout() {
+        this.history.push('/about');
+    }
+
     render() {
         const composer = props => {
             return <Composer className="app__main"
@@ -57,9 +63,13 @@ class App extends Component {
                 <div className="app">
                     <Menu className="app__menu"
                           goToNewNote={this.goToNewNote}
+                          goToAbout={this.goToAbout}
                           notes={this.state.notes} />
                     {this.state.showComposer ?
-                        <Route path="/:note_id" component={composer} /> : null}
+                        <Switch>
+                            <Route path="/about" render={props => <About history={props.history} />} />
+                            <Route path="/:note_id" component={composer} />
+                        </Switch> : null}
                 </div>
             </Router>
         )

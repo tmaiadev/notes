@@ -8,6 +8,9 @@ class MenuBottomToolbar extends Component {
     render() {
         return (
             <Toolbar>
+                <ToolbarButton label="About"
+                               icon="fas fa-info-circle"
+                               onClick={this.props.goToAbout} />
                 <ToolbarSpacer />
                 <ToolbarButton label="New Note"
                                icon="far fa-edit"
@@ -18,7 +21,8 @@ class MenuBottomToolbar extends Component {
 }
 
 MenuBottomToolbar.propTypes = {
-    goToNewNote: PropTypes.func.isRequired
+    goToNewNote: PropTypes.func.isRequired,
+    goToAbout: PropTypes.func.isRequired
 }
 
 export default MenuBottomToolbar;
