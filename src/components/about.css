@@ -12,8 +12,6 @@
     will-change: transform;
     transition: transform .3s ease-in;
     box-shadow: -2px 3px 15px rgba(0, 0, 0, .3);
-    box-sizing: border-box;
-    padding: 15px;
 }
 
 .about--active {
@@ -39,4 +37,6 @@
     display: block;
     width: 100%;
     max-width: 320px;
+    box-sizing: border-box;
+    padding: 15px;
 }
