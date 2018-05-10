@@ -21,9 +21,6 @@ class ComposerTopToolbar extends Component {
                 <ToolbarButton label="Checkbox List"
                                icon="fas fa-list-ul"
                                onClick={this.props.onCheckboxClick} />
-                <ToolbarButton label="Font Style"
-                               icon="fas fa-font"
-                               onClick={this.props.onFontClick} />
             </Toolbar>
         )
     }
@@ -33,7 +30,6 @@ ComposerTopToolbar.propTypes = {
     goToMenu: PropTypes.func.isRequired,
     checklist: PropTypes.bool,
     onCheckboxClick: PropTypes.func.isRequired,
-    onFontClick: PropTypes.func.isRequired,
     onAttachmentClick: PropTypes.func.isRequired
 }
 

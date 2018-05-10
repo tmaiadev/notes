@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Toolbar from './toolbar';
 import ToolbarSpacer from './toolbarSpacer';
 import ToolbarButton from './toolbarButton';
+import './composerBottomToolbar.css';
 
 class ComposerBottomToolbar extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class ComposerBottomToolbar extends Component {
 
     render() {
         return (
-            <Toolbar>
+            <Toolbar className="composer-bottom-toolbar">
                 <ToolbarButton label="Delete"
                                icon="far fa-trash-alt"
                                onClick={this.onDeleteClick} />

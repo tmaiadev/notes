@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Toolbar from './toolbar';
 import ToolbarButton from './toolbarButton';
 import ToolbarSpacer from './toolbarSpacer';
+import './composerFontToolbar.css';
 
 class ComposerFontToolbar extends Component {
     render() {
         return (
-            <Toolbar dark>
+            <Toolbar dark className="composer-font-toolbar">
                 <ToolbarButton dark
                                onClick={this.props.onTitleClick}
                                label="Title Style"><b>H1</b></ToolbarButton>

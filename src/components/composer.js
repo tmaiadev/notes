@@ -14,7 +14,6 @@ class Composer extends Component {
         this.state = {
             content: "",
             lastUpdate: new Date(),
-            showFontToolbar: false,
             active: false
         }
 
@@ -23,7 +22,6 @@ class Composer extends Component {
         this.save = this.save.bind(this);
         this.onTextareaInput = this.onTextareaInput.bind(this);
         this.onCheckboxClick = this.onCheckboxClick.bind(this);
-        this.onFontClick = this.onFontClick.bind(this);
         this.onAttachmentClick = this.onAttachmentClick.bind(this);
         this.onAttachmentSelected = this.onAttachmentSelected.bind(this);
         this.onTitleClick = this.onTitleClick.bind(this);
@@ -65,16 +63,12 @@ class Composer extends Component {
                 })
             });
 
+            this.manageCheckboxes();
+
             this.setState({
                 active: true,
                 lastUpdate
-            }, () => {
-                try {
-                    this.$textarea.focus();
-                } catch (e) {
-                    console.log('Could not focus on textarea', e);
-                }
-            })
+            });
         });
     }
 
@@ -172,10 +166,6 @@ class Composer extends Component {
     onCheckboxClick() {
         document.execCommand('insertUnorderedList');
         this.$textarea.focus();
-    }
-
-    onFontClick() {
-        this.setState({ showFontToolbar: ! this.state.showFontToolbar }, () => this.$textarea.focus());
     }
 
     onAttachmentClick() {
@@ -287,13 +277,12 @@ class Composer extends Component {
                          onInput={this.onTextareaInput}>
                     </div>
                 </Scrollable>
-                {this.state.showFontToolbar ?
-                    <ComposerFontToolbar onTitleClick={this.onTitleClick}
+                <ComposerFontToolbar onTitleClick={this.onTitleClick}
                                          onSubtitleClick={this.onSubtitleClick}
                                          onNormalClick={this.onNormalClick}
                                          onBoldClick={this.onBoldClick}
                                          onItalicClick={this.onItalicClick}
-                                         onUnderlineClick={this.onUnderlineClick} /> : null}
+                                         onUnderlineClick={this.onUnderlineClick} />
                 <ComposerBottomToolbar onDeleteClick={this.onDeleteClick} />
             </main>
         )
