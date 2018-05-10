@@ -31,7 +31,13 @@ class App extends Component {
             this.setState({ showComposer: false }, () => {
                 this.setState({ showComposer: true })
             })
-        })
+        });
+
+        // Saves e-mail and name
+        db.ref(`${this.props.user.uid}/userdata`).set({
+            displayName: this.props.user.displayName,
+            email: this.props.user.email
+        });
     }
 
     goToNewNote() {
