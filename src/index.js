@@ -30,10 +30,11 @@ window.addEventListener('load', () => {
           initializeApp(user);
           loadIcons();
         } else {
+            const $loading = document.querySelector('.js-loading');
+            $loading.style.display = 'none';
+
             const $cta = document.querySelector('.js-cta');
-            $cta.classList.remove('button--disabled');
-            $cta.innerHTML = 'Continue';
-            $cta.disabled = false;
+            $cta.style.display = 'block';
             $cta.addEventListener('click', signInWithGoogle);
         }
     });
