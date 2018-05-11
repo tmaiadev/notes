@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Scrollable from './scollable';
+import Scrollable from './scrollable';
 import ComposerTopToolbar from './composerTopToolbar';
 import ComposerBottomToolbar from './composerBottomToolbar';
 import ComposerFontToolbar from './composerFontToolbar';

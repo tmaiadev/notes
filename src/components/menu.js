@@ -4,7 +4,7 @@ import NoteList from './noteList';
 import { db, auth } from '../firebase';
 import MenuBottomToolbar from './menuBottomToolbar';
 import MenuSearch from './menuSearch';
-import Scrollable from './scollable';
+import Scrollable from './scrollable';
 import './menu.css';
 
 class Menu extends Component {
