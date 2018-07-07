@@ -10,7 +10,7 @@ function initializeApp(user) {
 function signInWithGoogle() {
     try {
         const provider = new GoogleAuthProvider();
-        auth.signInWithPopup(provider);
+        auth.signInWithRedirect(provider);
     } catch (e) {
         alert('An error occurred while trying to sign in. Try again.');
         window.location.reload();

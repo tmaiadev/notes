@@ -6,6 +6,7 @@
     left: 0px;
     right: 0px;
     bottom: 0px;
+    background-color: #FFF;
 }
 
 @media (min-width: 768px) {
