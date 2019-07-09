@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#FFFFFF">
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
     <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -19,135 +19,11 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Notes - by @thalleshmm</title>
-    <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        padding: 0px;
-        margin: 0px;
-        font-size: 16px;
-
-        --primary-color: #FFC107;
-      }
-
-      @media (max-width: 768px) {
-        *:focus {
-          outline: none;
-        }
-      }
-
-      #root {
-        display: flex;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        align-items: center;
-        justify-content: center;
-        background-image: url(bg.jpg);
-      }
-
-      .intro {
-        box-sizing: border-box;
-        padding: 15px;
-        max-width: 320px;
-      }
-
-      .intro__title {
-        font-size: 36px;
-        margin-top: 0px;
-        margin-bottom: 15px;
-      }
-
-      .intro__cta {
-        width: 100%;
-      }
-
-      .intro__loading {
-        font-style: italic;
-        text-align: center;
-      }
-
-      .button {
-        border-radius: 15px;
-        padding: 15px;
-        border: 0px;
-        font-size: 16px;
-        color: #FFF;
-        background-color: var(--primary-color);
-      }
-
-      .button--disabled {
-        color: #FFF;
-        background-color: #FFECB3;
-        cursor: not-allowed;
-      }
-
-      .link {
-        color: var(--primary-color);
-        text-decoration: none;
-      }
-
-      button.link {
-        background: transparent;
-        padding: 0px;
-        border: 0px;
-        cursor: pointer;
-        font-size: 16px;
-      }
-
-      .btn-signin-with-google {
-        cursor: pointer;
-        margin-left: auto;
-        margin-right: auto;
-        width: 190px;
-        height: 46px;
-        border: none;
-        background-color: transparent;
-        background-image: url('/signin-button.png');
-      }
-    </style>
+    <title>React App</title>
   </head>
   <body>
-    <div id="root">
-      <div class="intro">
-        <h1 class="intro__title">Notes</h1>
-        <div class="intro__table">
-          <p>
-            Notes is a simple and easy way to take notes and make lists.
-            It helps you keep all of your notes organized and secure.
-          </p>
-          <p>
-            This is an open source project. You can get the
-            <a href="https://github.com/thalleshmm/notes"
-               target="_blank"
-               class="link">source code</a> here.
-          </p>
-          <p>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-              <input type="hidden" name="cmd" value="_s-xclick">
-              <input type="hidden" name="hosted_button_id" value="HKQSQ2JJ9HLRJ">
-              Note is free and always will be. If you like the app,
-              <button type="submit"
-                      class="link"
-                      aria-label="Click here to donate">click here</button>
-              to donate any amount.
-            </form>
-          </p>
-        </div>
-        <div class="intro__loading js-loading">
-          Loading... wait.
-        </div>
-        <button type="button"
-                class="btn btn-signin-with-google js-cta"
-                style="display: none"
-                aria-label="Sign in with Google">
-        </button>
-      </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
