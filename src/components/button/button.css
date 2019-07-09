@@ -1,0 +1,21 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  box-shadow: var(--box-shadow-1);
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+.button--disabled {
+  cursor: not-allowed;
+}

@@ -1,0 +1,32 @@
+.activity-indicator {
+  display: block;
+  width: 100%;
+  height: 10px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.activity-indicator__inner-bar {
+  display: block;
+  width: 100%;
+  height: 5px;
+  background-color: var(--accent-color);
+  outline: 3px solid var(--accent-color);
+  animation-name: activityIndicatorInnerBarAnimation;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes activityIndicatorInnerBarAnimation {
+  0% {
+    transform: translate(-101%);
+  }
+
+  100% {
+    transform: translate(101%);
+  }
+}
