@@ -1,7 +1,7 @@
 .list-page {
   display: grid;
   grid-template-rows: min-content auto;
-  grid-gap: 16px;
+  grid-gap: 3px;
   width: 100%;
   height: 100%;
   top: 0px;
@@ -16,6 +16,7 @@
 
 .list-page__list {
   min-height: calc(100vh - 208px);
+  padding-top: 13px;
 }
 
 .list-page__credits {
@@ -23,4 +24,47 @@
   text-align: center;
   font-weight: 300;
   font-size: 14px;
+}
+
+.list-page__list-item {
+  display: block;
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  border: solid thin rgba(0, 0, 0, .1);
+  border-right: 0px;
+  border-left: 0px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 16px;
+  text-align: left;
+  background-color: var(--background-color);
+  cursor: pointer;
+}
+
+.list-page__list-item:hover {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.list-page__list-item--active {
+  background-color: rgba(0, 0, 0, .1);
+  cursor: default;
+}
+
+.list-page__list-item__title {
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.list-page__list-item__date {
+  font-weight: 300;
+}
+
+.list-page__list-item__icon {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
 }

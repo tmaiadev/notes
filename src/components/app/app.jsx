@@ -7,13 +7,14 @@ import './app.css';
 function App() {
   const [activityIndicator, setActivityIndicator] = useState(false);
   const [user, setUser] = useState(null);
-
   return (
     <div className="app">
       {activityIndicator ? <ActivityIndicator /> : null}
       {user
         ? (
           <MainPage
+            setActivityIndicator={setActivityIndicator}
+            user={user}
           />
         )
         : (
