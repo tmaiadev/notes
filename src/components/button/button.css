@@ -10,6 +10,11 @@
   background-color: var(--background-color);
   cursor: pointer;
   color: var(--text-color);
+  white-space: nowrap;
+}
+
+.button:hover {
+  background-color: rgba(0, 0, 0, .1);
 }
 
 .button--full-width {
@@ -18,4 +23,21 @@
 
 .button--disabled {
   cursor: not-allowed;
+}
+
+.button--small {
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
+.button--accent-colored-text {
+  color: var(--accent-color);
+}
+
+.button--no-shadow {
+  box-shadow: none;
+}
+
+.button--no-border {
+  border: none;
 }

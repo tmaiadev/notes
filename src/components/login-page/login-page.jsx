@@ -10,7 +10,6 @@ import './login-page.css';
 function LoginPage({
   setActivityIndicator,
   setUser,
-  user,
 }) {
   const [disabledLoginButton, setDisabledLoginButton] = useState(false);
 
@@ -35,18 +34,29 @@ function LoginPage({
   }
 
   useEffect(() => {
-    if (user) return;
+    let loggedInAutomatically = false;
+    setActivityIndicator(true);
+
     firebase
       .auth()
       .onAuthStateChanged((userData) => {
+        if (!userData) return;
+
         const {
           uid,
           displayName,
         } = userData;
 
+        loggedInAutomatically = true;
         setUser({ uid, displayName });
+        setActivityIndicator(false);
       });
-  }, [user, setUser, setActivityIndicator]);
+
+    setTimeout(() => {
+      if (loggedInAutomatically) return;
+      setActivityIndicator(false);
+    }, 1500);
+  }, [setUser, setActivityIndicator]);
 
   return (
     <div className="login-page">
@@ -65,7 +75,7 @@ function LoginPage({
             disabled={disabledLoginButton}
           >
             <Icon type="google" />
-            {' '}
+            &nbsp;
             Login with Google
           </Button>
         </div>
@@ -75,15 +85,8 @@ function LoginPage({
 }
 
 LoginPage.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-  }),
   setActivityIndicator: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
-};
-
-LoginPage.defaultProps = {
-  user: null,
 };
 
 export default LoginPage;

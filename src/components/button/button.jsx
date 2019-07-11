@@ -7,6 +7,10 @@ function Button({
   disabled,
   children,
   fullWidth,
+  small,
+  accentColoredText,
+  noShadow,
+  noBorder,
 }) {
   return (
     <button
@@ -14,6 +18,10 @@ function Button({
       className={'button '
         + `${fullWidth ? 'button--full-width ' : ''}`
         + `${disabled ? 'button--disabled ' : ''}`
+        + `${small ? 'button--small ' : ''}`
+        + `${accentColoredText ? 'button--accent-colored-text ' : ''}`
+        + `${noShadow ? 'button--no-shadow ' : ''}`
+        + `${noBorder ? 'button--no-border ' : ''}`
       }
       onClick={onClick}
       disabled={disabled}
@@ -28,11 +36,19 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   fullWidth: PropTypes.bool,
   disabled: PropTypes.bool,
+  small: PropTypes.bool,
+  accentColoredText: PropTypes.bool,
+  noShadow: PropTypes.bool,
+  noBorder: PropTypes.bool,
 };
 
 Button.defaultProps = {
   fullWidth: false,
   disabled: false,
+  small: false,
+  accentColoredText: false,
+  noShadow: false,
+  noBorder: false,
 };
 
 export default Button;

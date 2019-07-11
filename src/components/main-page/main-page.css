@@ -1,0 +1,43 @@
+.main-page {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  overflow: auto;
+}
+
+.main-page__page-container {
+  display: block;
+  position: relative;
+}
+
+.main-page__editor {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #CCC;
+}
+
+.main-page__editor--active {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .main-page {
+    grid-template-columns: 320px auto;   
+  }
+
+  .main-page__list {
+    box-shadow: var(--box-shadow-0);
+  }
+
+  .main-page__editor {
+    position: relative;
+    display: block;
+  }
+}

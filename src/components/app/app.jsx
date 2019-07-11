@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LoginPage from '../login-page/login-page';
+import MainPage from '../main-page/main-page';
 import ActivityIndicator from '../activity-indicator/activity-indicator';
 import './app.css';
 
@@ -10,11 +11,17 @@ function App() {
   return (
     <div className="app">
       {activityIndicator ? <ActivityIndicator /> : null}
-      <LoginPage
-        user={user}
-        setActivityIndicator={setActivityIndicator}
-        setUser={setUser}
-      />
+      {user
+        ? (
+          <MainPage
+          />
+        )
+        : (
+          <LoginPage
+            setActivityIndicator={setActivityIndicator}
+            setUser={setUser}
+          />
+        )}
     </div>
   );
 }
