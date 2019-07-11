@@ -10,6 +10,7 @@ import './list-page.css';
 function ListPage({
   onNewNote,
   user,
+  setNoteId,
   activeNoteId,
 }) {
   const [notes, setNotes] = useState([]);
@@ -65,6 +66,7 @@ function ListPage({
                   className={'list-page__list-item '
                     + `${active ? 'list-page__list-item--active' : ''}`
                   }
+                  onClick={() => setNoteId(id)}
                 >
                   <div className="list-page__list-item__title">
                     {title}
@@ -98,6 +100,7 @@ ListPage.propTypes = {
     displayName: PropTypes.string,
   }).isRequired,
   activeNoteId: PropTypes.string,
+  setNoteId: PropTypes.func.isRequired,
 };
 
 ListPage.defaultProps = {

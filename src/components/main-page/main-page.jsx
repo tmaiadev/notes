@@ -42,7 +42,8 @@ function MainPage({
         <ListPage
           onNewNote={newNote}
           user={user}
-          noteId={noteId}
+          activeNoteId={noteId}
+          setNoteId={setNoteId}
         />
       </div>
       <div

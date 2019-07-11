@@ -53,6 +53,10 @@
   cursor: default;
 }
 
+.list-page__list-item--active:hover {
+  background-color: rgba(0, 0, 0, .1);
+}
+
 .list-page__list-item__title {
   font-weight: 800;
   margin-bottom: 8px;
