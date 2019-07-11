@@ -36,10 +36,12 @@
   border-left: 0px;
   box-sizing: border-box;
   margin-bottom: 8px;
-  padding: 16px;
+  padding: 16px 32px;
+  padding-right: 54px;
   text-align: left;
   background-color: var(--background-color);
   cursor: pointer;
+  color: var(--text-color);
 }
 
 .list-page__list-item:hover {
@@ -53,7 +55,10 @@
 
 .list-page__list-item__title {
   font-weight: 800;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .list-page__list-item__date {
@@ -64,7 +69,7 @@
   display: block;
   position: absolute;
   top: 50%;
-  right: 16px;
+  right: 32px;
   transform: translateY(-50%);
   pointer-events: none;
 }
