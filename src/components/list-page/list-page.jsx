@@ -16,25 +16,18 @@ function ListPage({
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    if (notes.length > 0) return;
-    db.collection('notes')
+    const unsubscribe = db.collection('notes')
       .where('user', '==', user.uid)
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         setNotes(
           querySnapshot
             .docs
             .map(doc => ({ id: doc.id, ...doc.data() })),
         );
-      })
-      .catch((e) => {
-        console.log(e);
-        alert('Something went wrong. Try again later.');
-      })
-      .finally(() => {
-        
       });
-  }, [notes, setNotes, user.uid]);
+
+    return () => unsubscribe();
+  }, [user.uid]);
 
   return (
     <div className="list-page">
