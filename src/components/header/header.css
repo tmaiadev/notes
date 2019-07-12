@@ -8,4 +8,32 @@
   display: grid;
   grid-gap: 16px;
   grid-template-columns: min-content auto min-content;
+  height: 25px;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .header__container {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 768px;
+  }
+
+  .header__nav__return > * {
+    display: none;
+  }
+}
+
+.header__nav__tools {
+  display: flex;
+  flex-direction: row;
+}
+
+.header__nav__tools > * {
+  margin-right: 4px;
+}
+
+.header__nav__tools > *:last-child {
+  margin-right: 0px;
 }

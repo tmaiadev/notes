@@ -1,4 +1,13 @@
 .title {
+  display: block;
+  width: 100%;
   font-size: 40px;
   margin: 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.title:focus {
+  text-overflow: initial;
 }

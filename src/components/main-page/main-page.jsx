@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ListPage from '../list-page/list-page';
+import EditorPage from '../editor-page/editor-page';
 import db from '../../libs/firestore';
 import './main-page.css';
 
@@ -9,6 +10,10 @@ function MainPage({
   user,
 }) {
   const [noteId, setNoteId] = useState(null);
+
+  function returnToList() {
+    setNoteId(null);
+  }
 
   async function newNote() {
     setActivityIndicator(true);
@@ -50,7 +55,14 @@ function MainPage({
         className={'main-page__page-container main-page__editor '
           + `${noteId ? 'main-page__editor--active' : ''}`}
       >
-        {noteId}
+        {noteId 
+          ? (
+            <EditorPage
+              noteId={noteId}
+              onReturn={returnToList}
+            />
+          )
+          : null}
       </div>
     </div>
   );

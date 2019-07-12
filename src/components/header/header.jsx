@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Title from '../title/title';
+import Button from '../button/button';
+import Icon from '../icon/icon';
 import './header.css';
 
 function Header({
@@ -12,22 +14,40 @@ function Header({
 }) {
   return (
     <header className="header">
-      <Title
-        value={title}
-        editable={editableTitle}
-        onChange={onTitleChange}
-      />
-      <nav className="header__nav">
-        <div>
-          {onReturn
-            ? 'RETURN ACTION'
-            : null}
-        </div>
-        <div />
-        <div>
-          {children}
-        </div>
-      </nav>
+      <div className="header__container">
+        <Title
+          value={title}
+          editable={editableTitle}
+          onChange={onTitleChange}
+        />
+        <nav className="header__nav">
+          <div className="header__nav__return">
+            {onReturn
+              ? (
+                <Button
+                  small
+                  accentColoredText
+                  noShadow
+                  noBorder
+                  onClick={onReturn}
+                >
+                  <Icon
+                    type="dropleft"
+                    fill={'var(--accent-color)'}
+                    aria-hidden
+                  />
+                  &nbsp;
+                  Return
+                </Button>
+              )
+              : null}
+          </div>
+          <div />
+          <div className="header__nav__tools">
+            {children}
+          </div>
+        </nav>
+      </div>
     </header>
   );
 }

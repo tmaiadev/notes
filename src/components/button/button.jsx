@@ -11,6 +11,7 @@ function Button({
   accentColoredText,
   noShadow,
   noBorder,
+  'aria-label': ariaLabel,
 }) {
   return (
     <button
@@ -25,6 +26,7 @@ function Button({
       }
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
@@ -40,6 +42,7 @@ Button.propTypes = {
   accentColoredText: PropTypes.bool,
   noShadow: PropTypes.bool,
   noBorder: PropTypes.bool,
+  'aria-label': PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -49,6 +52,7 @@ Button.defaultProps = {
   accentColoredText: false,
   noShadow: false,
   noBorder: false,
+  'aria-label': undefined,
 };
 
 export default Button;
