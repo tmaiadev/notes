@@ -1,3 +1,20 @@
+.paragraph--list {
+  padding-left: 32px;
+  position: relative;
+}
+
+.paragraph--list::before {
+  content: ' ';
+  display: block;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  transform: translateY(-50%);
+  background-color: var(--text-color);
+}
+
 .paragraph__input {
   padding: 8px 32px;
 }

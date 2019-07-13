@@ -14,6 +14,7 @@ function EditorPage({
   const [note, setNote] = useState(null);
   const [noteRef, setNoteRef] = useState(null);
   let lastUpdate = new Date();
+  let currParagraphId = null;
 
   function updateNote(newValues) {
     lastUpdate = new Date();
@@ -106,6 +107,41 @@ function EditorPage({
     });
   }
 
+  function onParagraphFocus(id) {
+    currParagraphId = id;
+  }
+
+  function toggleList() {
+    if (!currParagraphId) return;
+    const paragraph = note.content.find(p => p.id === currParagraphId);
+    const type = paragraph.type === 'list'
+      ? 'paragraph'
+      : 'list';
+
+    setNote({
+      ...note,
+      content: [
+        ...note
+          .content
+          .map((p) => {
+            if (p.id === currParagraphId) {
+              const newp = p;
+              newp.type = type;
+              return newp;
+            }
+
+            return p;
+          }),
+      ],
+    });
+
+    requestAnimationFrame(() => focusOnParagraph(currParagraphId));
+    updateNote({
+      content: note.content,
+      updatedAt: new Date(),
+    });
+  }
+
   // Get note from db
   useEffect(() => {
     db.collection('notes')
@@ -152,35 +188,12 @@ function EditorPage({
         onReturn={onReturn}
       >
         <Button
-          aria-label="Bold"
-          small
-          accentColoredText
-          noBorder
-          noShadow
-          onClick={() => document.execCommand('bold')}
-        >
-          <span className="editor-page__bold">
-            B
-          </span>
-        </Button>
-        <Button
-          aria-label="Italic"
-          small
-          accentColoredText
-          noBorder
-          noShadow
-          onClick={() => document.execCommand('italic')}
-        >
-          <span className="editor-page__italic">
-            I
-          </span>
-        </Button>
-        <Button
           aria-label="List"
           small
           accentColoredText
           noBorder
           noShadow
+          onClick={toggleList}
         >
           <Icon
             type="list"
@@ -236,6 +249,7 @@ function EditorPage({
                 onNewParagraph={addNewParagraph}
                 onRemoveParagraph={removeParagraph}
                 onChange={onParagraphChange}
+                onFocus={onParagraphFocus}
               />
             ))}
         </div>

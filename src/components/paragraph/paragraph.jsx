@@ -8,6 +8,7 @@ function Paragraph({
   value,
   checked,
   onChange,
+  onFocus,
   onNewParagraph,
   onRemoveParagraph,
 }) {
@@ -55,7 +56,7 @@ function Paragraph({
   }
 
   return (
-    <div className="paragraph">
+    <div className={`paragraph ${type === 'list' ? 'paragraph--list' : ''}`}>
       <div
         ref={inputRef}
         id={id}
@@ -63,6 +64,7 @@ function Paragraph({
         contentEditable
         onKeyDown={onKeyDown}
         onInput={onInput}
+        onFocus={() => onFocus(id)}
         role="textbox"
         tabIndex="0"
       />
@@ -76,6 +78,7 @@ Paragraph.propTypes = {
   value: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func.isRequired,
   onNewParagraph: PropTypes.func.isRequired,
   onRemoveParagraph: PropTypes.func.isRequired,
 };
