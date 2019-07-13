@@ -12,6 +12,29 @@ function EditorPage({
 }) {
   const [note, setNote] = useState(null);
   const [noteRef, setNoteRef] = useState(null);
+  let _lastUpdate = new Date();
+
+  function updateNote(newValues) {
+    _lastUpdate = new Date();
+    setTimeout(() => {
+      const diff = new Date() - _lastUpdate;
+      if (diff < 1000) return;
+      noteRef
+        .set(newValues, { merge: true })
+        .catch((e) => {
+          console.log(e);
+          alert('Note could not be updated. Check your internet conection and try again.');
+        });
+    }, 1000);
+  }
+
+  function onTitleChange(evt) {
+    const title = evt.target.value;
+    updateNote({
+      title,
+      updatedAt: new Date(),
+    });
+  }
 
   function deleteNote() {
     const msg = 'Are you sure you want to delete this note?';
@@ -46,6 +69,7 @@ function EditorPage({
       <Header
         title={note.title}
         editableTitle
+        onTitleChange={onTitleChange}
         onReturn={onReturn}
       >
         <Button
@@ -109,6 +133,13 @@ function EditorPage({
           />
         </Button>
       </Header>
+      <div className="editor-page__scrollable-area">
+        <div className="editor-page__content">
+          <div className="editor-page__date">
+            {note.updatedAt.toDate().toDateString()}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

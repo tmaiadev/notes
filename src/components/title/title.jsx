@@ -7,23 +7,20 @@ function Title({
   editable,
   onChange,
 }) {
-  const titleRef = useRef();
-
-  useEffect(() => {
-    const h1 = titleRef.current;
-
-    if (editable) {
-      h1.contentEditable = true;
-    }
-
-    h1.innerHTML = value;
-  }, [value, titleRef, editable])
+  if (editable) {
+    return (
+      <input
+        className="title title--input"
+        defaultValue={value}
+        onChange={onChange}
+      />
+    );
+  }
 
   return (
     <h1
       className="title"
-      onChange={onChange}
-      ref={titleRef}
+      onInput={onChange}
     >{value}</h1>
   );
 }

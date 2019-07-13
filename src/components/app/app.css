@@ -19,6 +19,10 @@
   background-color: var(--background-color);
 }
 
+.app * {
+  font-family: 'Roboto', sans-serif;
+}
+
 .app a {
   color: var(--accent-color);
   text-decoration: none;

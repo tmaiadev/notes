@@ -8,6 +8,9 @@
   overflow: hidden;
 }
 
-.title:focus {
-  text-overflow: initial;
+.title {
+  color: var(--text-color);
+  border: 0px;
+  background-color: transparent;
+  font-weight: 800;
 }
