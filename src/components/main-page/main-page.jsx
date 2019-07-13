@@ -25,7 +25,7 @@ function MainPage({
         .add({
           title: 'New note',
           content: [
-            { type: 'paragraph', content: '' },
+            { id: Math.random().toString(32).substr(2), type: 'paragraph', value: '' },
           ],
           createdAt: now,
           updatedAt: now,
@@ -55,7 +55,7 @@ function MainPage({
         className={'main-page__page-container main-page__editor '
           + `${noteId ? 'main-page__editor--active' : ''}`}
       >
-        {noteId 
+        {noteId
           ? (
             <EditorPage
               noteId={noteId}

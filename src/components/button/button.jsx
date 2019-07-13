@@ -11,6 +11,8 @@ function Button({
   accentColoredText,
   noShadow,
   noBorder,
+  noRightPadding,
+  noLeftPadding,
   'aria-label': ariaLabel,
 }) {
   return (
@@ -23,6 +25,8 @@ function Button({
         + `${accentColoredText ? 'button--accent-colored-text ' : ''}`
         + `${noShadow ? 'button--no-shadow ' : ''}`
         + `${noBorder ? 'button--no-border ' : ''}`
+        + `${noRightPadding ? 'button--no-right-padding ' : ''}`
+        + `${noLeftPadding ? 'button--no-left-padding ' : ''}`
       }
       onClick={onClick}
       disabled={disabled}
@@ -42,6 +46,8 @@ Button.propTypes = {
   accentColoredText: PropTypes.bool,
   noShadow: PropTypes.bool,
   noBorder: PropTypes.bool,
+  noRightPadding: PropTypes.bool,
+  noLeftPadding: PropTypes.bool,
   'aria-label': PropTypes.string,
 };
 
@@ -52,6 +58,8 @@ Button.defaultProps = {
   accentColoredText: false,
   noShadow: false,
   noBorder: false,
+  noRightPadding: false,
+  noLeftPadding: false,
   'aria-label': undefined,
 };
 

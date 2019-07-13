@@ -4,7 +4,7 @@
     "browser": true
   },
   "rules": {
-    "no-alert": false,
-    "no-console": false
+    "no-alert": 0,
+    "no-console": 0
   }
 }

@@ -41,3 +41,11 @@
 .button--no-border {
   border: none;
 }
+
+.button--no-right-padding {
+  padding-right: 0px;
+}
+
+.button--no-left-padding {
+  padding-left: 0px;
+}

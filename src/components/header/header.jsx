@@ -29,6 +29,7 @@ function Header({
                   accentColoredText
                   noShadow
                   noBorder
+                  noLeftPadding
                   onClick={onReturn}
                 >
                   <Icon

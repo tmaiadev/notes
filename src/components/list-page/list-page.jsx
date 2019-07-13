@@ -38,6 +38,7 @@ function ListPage({
           accentColoredText
           noShadow
           noBorder
+          noRightPadding
         >
           New Note
           &nbsp;
@@ -56,6 +57,7 @@ function ListPage({
               return (
                 <button
                   key={id}
+                  type="button"
                   className={'list-page__list-item '
                     + `${active ? 'list-page__list-item--active' : ''}`
                   }
@@ -70,12 +72,12 @@ function ListPage({
                   <div className="list-page__list-item__icon">
                     <Icon
                       type="droprightCircle"
-                      fill={'var(--accent-color)'}
+                      fill="var(--accent-color)"
                       aria-hidden
                     />
                   </div>
                 </button>
-              )
+              );
             })}
         </div>
         <div className="list-page__credits">

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../header/header';
 import Button from '../button/button';
 import Icon from '../icon/icon';
+import Paragraph from '../paragraph/paragraph';
 import db from '../../libs/firestore';
 import './editor-page.css';
 
@@ -12,12 +13,12 @@ function EditorPage({
 }) {
   const [note, setNote] = useState(null);
   const [noteRef, setNoteRef] = useState(null);
-  let _lastUpdate = new Date();
+  let lastUpdate = new Date();
 
   function updateNote(newValues) {
-    _lastUpdate = new Date();
+    lastUpdate = new Date();
     setTimeout(() => {
-      const diff = new Date() - _lastUpdate;
+      const diff = new Date() - lastUpdate;
       if (diff < 1000) return;
       noteRef
         .set(newValues, { merge: true })
@@ -44,6 +45,68 @@ function EditorPage({
     }
   }
 
+  function focusOnParagraph(id) {
+    document.getElementById(id).focus();
+    const selection = window.getSelection();
+    selection.setPosition(selection.anchorNode, selection.anchorNode.length);
+  }
+
+  function addNewParagraph(id) {
+    const index = note.content.findIndex(p => p.id === id);
+    const paragraph = note.content.find(p => p.id === id);
+    const newId = Math.random().toString(32).substr(2);
+    const content = [
+      ...note.content.filter((p, i) => i <= index),
+      {
+        id: newId,
+        type: paragraph.type,
+        value: '',
+      },
+      ...note.content.filter((p, i) => i > index),
+    ];
+
+    setNote({
+      ...note,
+      content,
+    });
+
+    // Focus on the new paragraph
+    requestAnimationFrame(() => focusOnParagraph(newId));
+  }
+
+  function removeParagraph(id) {
+    const index = note.content.findIndex(p => p.id === id);
+    if (index === 0) return;
+
+    const previousParagraph = note.content[index - 1];
+
+    setNote({
+      ...note,
+      content: note.content.filter(p => p.id !== id),
+    });
+
+    // focus on the previous paragraph
+    requestAnimationFrame(() => focusOnParagraph(previousParagraph.id));
+  }
+
+  function onParagraphChange(id, value) {
+    updateNote({
+      content: [
+        ...note
+          .content
+          .map((p) => {
+            const newp = p;
+            if (newp.id === id) {
+              newp.value = value;
+            }
+            return newp;
+          }),
+      ],
+      updatedAt: new Date(),
+    });
+  }
+
+  // Get note from db
   useEffect(() => {
     db.collection('notes')
       .doc(noteId)
@@ -62,6 +125,22 @@ function EditorPage({
       });
   }, [noteId, onReturn]);
 
+  // When user touches on the scrollable area, focus on the last Paragraph.
+  useEffect(() => {
+    if (!note) return undefined;
+
+    function onClick(evt) {
+      if (evt.target.classList.contains('editor-page__scrollable-area')) {
+        const inputs = Array.from(evt.target.querySelectorAll('.paragraph__input'));
+        focusOnParagraph(inputs[inputs.length - 1].id);
+      }
+    }
+
+    const scrollableArea = document.querySelector('.editor-page__scrollable-area');
+    scrollableArea.addEventListener('click', onClick);
+    return () => scrollableArea.removeEventListener('click', onClick);
+  }, [note]);
+
   if (!note) return null;
 
   return (
@@ -78,6 +157,7 @@ function EditorPage({
           accentColoredText
           noBorder
           noShadow
+          onClick={() => document.execCommand('bold')}
         >
           <span className="editor-page__bold">
             B
@@ -89,24 +169,27 @@ function EditorPage({
           accentColoredText
           noBorder
           noShadow
+          onClick={() => document.execCommand('italic')}
         >
           <span className="editor-page__italic">
             I
           </span>
         </Button>
         <Button
-          aria-label="Underline"
+          aria-label="List"
           small
           accentColoredText
           noBorder
           noShadow
         >
-          <span className="editor-page__underline">
-            U
-          </span>
+          <Icon
+            type="list"
+            aria-hidden
+            fill="var(--accent-color)"
+          />
         </Button>
         <Button
-          aria-label="Checkbox / Text"
+          aria-label="Checkbox"
           small
           accentColoredText
           noBorder
@@ -115,7 +198,7 @@ function EditorPage({
           <Icon
             type="circleChecked"
             aria-hidden
-            fill={'var(--accent-color)'}
+            fill="var(--accent-color)"
           />
         </Button>
         <Button
@@ -129,7 +212,7 @@ function EditorPage({
           <Icon
             type="trash"
             aria-hidden
-            fill={'var(--accent-color)'}
+            fill="var(--accent-color)"
           />
         </Button>
       </Header>
@@ -138,6 +221,23 @@ function EditorPage({
           <div className="editor-page__date">
             {note.updatedAt.toDate().toDateString()}
           </div>
+          {note
+            .content
+            .map(({
+              id,
+              value,
+              type,
+            }) => (
+              <Paragraph
+                key={id}
+                id={id}
+                type={type}
+                value={value}
+                onNewParagraph={addNewParagraph}
+                onRemoveParagraph={removeParagraph}
+                onChange={onParagraphChange}
+              />
+            ))}
         </div>
       </div>
     </div>
