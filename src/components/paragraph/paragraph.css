@@ -1,5 +1,4 @@
 .paragraph--list {
-  padding-left: 32px;
   position: relative;
 }
 
@@ -17,4 +16,8 @@
 
 .paragraph__input {
   padding: 8px 32px;
+}
+
+.paragraph--list .paragraph__input {
+  padding-left: 64px;
 }
