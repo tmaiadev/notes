@@ -11,6 +11,9 @@ function Paragraph({
   onFocus,
   onNewParagraph,
   onRemoveParagraph,
+  onPrevParagraph,
+  onNextParagraph,
+  onAppendToPreviousParagraph,
 }) {
   const inputRef = useRef();
   let lastInput = new Date();
@@ -25,12 +28,43 @@ function Paragraph({
       case 'Enter':
         evt.preventDefault();
         if (val.length > 0) {
-          onNewParagraph(id);
+          const { anchorOffset } = window.getSelection();
+          const newValue = val.substr(0, anchorOffset);
+          const newParagraphValue = val.substr(anchorOffset);
+          onChange(id, newValue);
+          onNewParagraph(id, newParagraphValue);
         }
         break;
       case 'Backspace':
-        if (val.length === 0) {
-          onRemoveParagraph(id);
+        {
+          if (val.length === 0) {
+            onRemoveParagraph(id);
+            return;
+          }
+
+          const { anchorOffset } = window.getSelection();
+          if (anchorOffset !== 0) return;
+          onChange(id, val);
+          requestAnimationFrame(() => onAppendToPreviousParagraph(id));
+        }
+        break;
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        {
+          const { anchorOffset } = window.getSelection();
+          if (anchorOffset === 0) {
+            onPrevParagraph(id);
+          }
+        }
+        break;
+      case 'ArrowDown':
+      case 'ArrowRight':
+        {
+          const { anchorOffset, anchorNode } = window.getSelection();
+          const { data } = anchorNode;
+          if (data && anchorOffset === data.length) {
+            onNextParagraph(id);
+          }
         }
         break;
       default:
@@ -56,7 +90,10 @@ function Paragraph({
   }
 
   return (
-    <div className={`paragraph ${type === 'list' ? 'paragraph--list' : ''}`}>
+    <div className={'paragraph '
+      + `${type === 'list' ? 'paragraph--list ' : ''}`
+      + `${type === 'checkbox' ? 'paragraph--checklist ' : ''}`}
+    >
       <div
         ref={inputRef}
         id={id}
@@ -81,6 +118,9 @@ Paragraph.propTypes = {
   onFocus: PropTypes.func.isRequired,
   onNewParagraph: PropTypes.func.isRequired,
   onRemoveParagraph: PropTypes.func.isRequired,
+  onPrevParagraph: PropTypes.func.isRequired,
+  onNextParagraph: PropTypes.func.isRequired,
+  onAppendToPreviousParagraph: PropTypes.func.isRequired,
 };
 
 Paragraph.defaultProps = {

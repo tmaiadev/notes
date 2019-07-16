@@ -46,13 +46,33 @@ function EditorPage({
     }
   }
 
-  function focusOnParagraph(id) {
+  function focusOnParagraph(id, offset = undefined) {
     document.getElementById(id).focus();
-    const selection = window.getSelection();
-    selection.setPosition(selection.anchorNode, selection.anchorNode.length);
+    requestAnimationFrame(() => {
+      const selection = window.getSelection();
+      const { anchorNode } = selection;
+
+      let position = 0;
+
+      // When offset is undefined, we
+      // bring the carrot to the last char
+      if (offset === undefined) {
+        if (anchorNode.data) {
+          position = anchorNode.data.length;
+        } else {
+          // When data does not exist,
+          // it means that the paragraph is new. So set to zero.
+          position = 0;
+        }
+      } else {
+        position = offset;
+      }
+
+      selection.setPosition(anchorNode, position);
+    });
   }
 
-  function addNewParagraph(id) {
+  function addNewParagraph(id, value) {
     const index = note.content.findIndex(p => p.id === id);
     const paragraph = note.content.find(p => p.id === id);
     const newId = Math.random().toString(32).substr(2);
@@ -61,7 +81,7 @@ function EditorPage({
       {
         id: newId,
         type: paragraph.type,
-        value: '',
+        value,
       },
       ...note.content.filter((p, i) => i > index),
     ];
@@ -72,7 +92,7 @@ function EditorPage({
     });
 
     // Focus on the new paragraph
-    requestAnimationFrame(() => focusOnParagraph(newId));
+    requestAnimationFrame(() => focusOnParagraph(newId, 0));
   }
 
   function removeParagraph(id) {
@@ -88,6 +108,56 @@ function EditorPage({
 
     // focus on the previous paragraph
     requestAnimationFrame(() => focusOnParagraph(previousParagraph.id));
+  }
+
+  function appendToPrevParagraph(id) {
+    const index = note.content.findIndex(p => p.id === id);
+    if (index === 0) return;
+    const curr = { ...note.content[index] };
+    const prev = { ...note.content[index - 1] };
+    setNote({
+      ...note,
+      content: [
+        ...note
+          .content
+          .map((p) => {
+            if (p.id === curr.id) {
+              return undefined;
+            }
+
+            if (p.id === prev.id) {
+              const newParagraph = p;
+              newParagraph.value = `${prev.value}${curr.value}`;
+              return newParagraph;
+            }
+
+            return p;
+          })
+          .filter(p => p !== undefined),
+      ],
+    });
+    requestAnimationFrame(() => {
+      updateNote({
+        content: note.content,
+        updatedAt: new Date(),
+      });
+      requestAnimationFrame(() => {
+        focusOnParagraph(prev.id, prev.value.length);
+      });
+    });
+  }
+
+  function focusOnPrevParagraph(id) {
+    const index = note.content.findIndex(p => p.id === id);
+    if (index === 0) return;
+    focusOnParagraph(note.content[index - 1].id);
+  }
+
+  function focusOnNextParagraph(id) {
+    const index = note.content.findIndex(p => p.id === id) + 1;
+    const nextParagraph = note.content[index];
+    if (!nextParagraph) return;
+    focusOnParagraph(nextParagraph.id, 0);
   }
 
   function onParagraphChange(id, value) {
@@ -189,6 +259,7 @@ function EditorPage({
       >
         <Button
           aria-label="List"
+          title="List"
           small
           accentColoredText
           noBorder
@@ -203,6 +274,7 @@ function EditorPage({
         </Button>
         <Button
           aria-label="Checkbox"
+          title="Checkbox"
           small
           accentColoredText
           noBorder
@@ -216,6 +288,7 @@ function EditorPage({
         </Button>
         <Button
           aria-label="Delete Note"
+          title="Delete Note"
           small
           accentColoredText
           noBorder
@@ -248,6 +321,9 @@ function EditorPage({
                 value={value}
                 onNewParagraph={addNewParagraph}
                 onRemoveParagraph={removeParagraph}
+                onPrevParagraph={focusOnPrevParagraph}
+                onNextParagraph={focusOnNextParagraph}
+                onAppendToPreviousParagraph={appendToPrevParagraph}
                 onChange={onParagraphChange}
                 onFocus={onParagraphFocus}
               />

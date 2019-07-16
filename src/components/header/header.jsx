@@ -14,41 +14,39 @@ function Header({
 }) {
   return (
     <header className="header">
-      <div className="header__container">
-        <Title
-          value={title}
-          editable={editableTitle}
-          onChange={onTitleChange}
-        />
-        <nav className="header__nav">
-          <div className="header__nav__return">
-            {onReturn
-              ? (
-                <Button
-                  small
-                  accentColoredText
-                  noShadow
-                  noBorder
-                  noLeftPadding
-                  onClick={onReturn}
-                >
-                  <Icon
-                    type="dropleft"
-                    fill={'var(--accent-color)'}
-                    aria-hidden
-                  />
-                  &nbsp;
-                  Return
-                </Button>
-              )
-              : null}
-          </div>
-          <div />
-          <div className="header__nav__tools">
-            {children}
-          </div>
-        </nav>
-      </div>
+      <Title
+        value={title}
+        editable={editableTitle}
+        onChange={onTitleChange}
+      />
+      <nav className="header__nav">
+        <div className="header__nav__return">
+          {onReturn
+            ? (
+              <Button
+                small
+                accentColoredText
+                noShadow
+                noBorder
+                noLeftPadding
+                onClick={onReturn}
+              >
+                <Icon
+                  type="dropleft"
+                  fill="var(--accent-color)"
+                  aria-hidden
+                />
+                &nbsp;
+                Return
+              </Button>
+            )
+            : null}
+        </div>
+        <div />
+        <div className="header__nav__tools">
+          {children}
+        </div>
+      </nav>
     </header>
   );
 }

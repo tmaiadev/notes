@@ -13,6 +13,7 @@ function Button({
   noBorder,
   noRightPadding,
   noLeftPadding,
+  title,
   'aria-label': ariaLabel,
 }) {
   return (
@@ -30,6 +31,7 @@ function Button({
       }
       onClick={onClick}
       disabled={disabled}
+      title={title}
       aria-label={ariaLabel}
     >
       {children}
@@ -48,6 +50,7 @@ Button.propTypes = {
   noBorder: PropTypes.bool,
   noRightPadding: PropTypes.bool,
   noLeftPadding: PropTypes.bool,
+  title: PropTypes.string,
   'aria-label': PropTypes.string,
 };
 
@@ -60,6 +63,7 @@ Button.defaultProps = {
   noBorder: false,
   noRightPadding: false,
   noLeftPadding: false,
+  title: undefined,
   'aria-label': undefined,
 };
 

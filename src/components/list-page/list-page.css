@@ -15,7 +15,7 @@
 }
 
 .list-page__list {
-  min-height: calc(100vh - 216px);
+  min-height: calc(100vh - 220px);
   padding-top: 13px;
 }
 
