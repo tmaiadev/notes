@@ -27,3 +27,7 @@
   color: var(--accent-color);
   text-decoration: none;
 }
+
+.app--no-outline *:focus {
+  outline: none;
+}
