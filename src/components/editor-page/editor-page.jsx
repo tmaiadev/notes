@@ -160,7 +160,7 @@ function EditorPage({
     focusOnParagraph(nextParagraph.id, 0);
   }
 
-  function onParagraphChange(id, value) {
+  function onParagraphChange(id, value, checked = false) {
     updateNote({
       content: [
         ...note
@@ -169,6 +169,7 @@ function EditorPage({
             const newp = p;
             if (newp.id === id) {
               newp.value = value;
+              newp.checked = checked;
             }
             return newp;
           }),
@@ -181,12 +182,12 @@ function EditorPage({
     currParagraphId = id;
   }
 
-  function toggleList() {
+  function toggleType(targetType = 'list') {
     if (!currParagraphId) return;
     const paragraph = note.content.find(p => p.id === currParagraphId);
-    const type = paragraph.type === 'list'
+    const type = paragraph.type === targetType
       ? 'paragraph'
-      : 'list';
+      : targetType;
 
     setNote({
       ...note,
@@ -264,7 +265,7 @@ function EditorPage({
           accentColoredText
           noBorder
           noShadow
-          onClick={toggleList}
+          onClick={() => toggleType('list')}
         >
           <Icon
             type="list"
@@ -279,6 +280,7 @@ function EditorPage({
           accentColoredText
           noBorder
           noShadow
+          onClick={() => toggleType('checkbox')}
         >
           <Icon
             type="circleChecked"
@@ -313,12 +315,14 @@ function EditorPage({
               id,
               value,
               type,
+              checked,
             }) => (
               <Paragraph
                 key={id}
                 id={id}
                 type={type}
                 value={value}
+                checked={checked}
                 onNewParagraph={addNewParagraph}
                 onRemoveParagraph={removeParagraph}
                 onPrevParagraph={focusOnPrevParagraph}

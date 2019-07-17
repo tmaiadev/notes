@@ -1,4 +1,5 @@
-.paragraph--list {
+.paragraph--list,
+.paragraph--checkbox {
   position: relative;
 }
 
@@ -18,6 +19,29 @@
   padding: 8px 32px;
 }
 
-.paragraph--list .paragraph__input {
+.paragraph--list .paragraph__input,
+.paragraph--checkbox .paragraph__input {
   padding-left: 64px;
+}
+
+.paragraph__checkbox {
+  display: block;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.paragraph__checkbox__input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  padding: 0px;
+  appearance: none;
 }
